@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Age of Empires IV Key Bindings Overview</title>
+    <style>
+      :root {
+        --primary-color: #34495e;
+        --secondary-color: #3498db;
+        --accent-color: #e74c3c;
+        --bg-color: #f5f7fa;
+        --card-bg: #ffffff;
+        --text-color: #2c3e50;
+        --border-color: #dfe6e9;
+        --shift-color: #e91e63;
+        --ctrl-color: #4caf50;
+        --alt-color: #ff9800;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        color: var(--primary-color);
+        margin-bottom: 10px;
+      }
+
+      .binding-groups {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        width: 100%;
+        min-height: 100px;
+      }
+
+      .group {
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        grid-column: span 1;
+      }
+
+      .group-header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 10px 15px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-transform: capitalize;
+      }
+
+      .command-list {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      .command-item {
+        padding: 8px 15px;
+        border-bottom: 1px solid var(--border-color);
+        transition: background-color 0.2s;
+      }
+
+      .command-item:last-child {
+        border-bottom: none;
+      }
+
+      .command-item:hover {
+        background-color: rgba(52, 152, 219, 0.1);
+      }
+
+      .command-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: var(--primary-color);
+        font-size: 1.3rem;
+      }
+
+      .keybindings-container {
+        margin-top: 5px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .keybinding {
+        display: inline-flex;
+        background-color: #e6e6e6;
+        padding: 4px 8px;
+        border-radius: 6px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        font-family: monospace;
+        border: 1px solid #bbb;
+        font-size: 1rem;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        min-width: 28px;
+        height: 28px;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .keybinding.mouse-button {
+        background-color: #d0e2ff;
+        border-color: #0073e6;
+        padding: 4px 8px;
+        min-width: 28px;
+        position: relative;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .keybinding.mouse-button.middle-mouse {
+        background-color: #c2e0ff;
+        border-color: #0068d0;
+      }
+
+      .keybinding.mouse-button.mouse-4 {
+        background-color: #b3d4ff;
+        border-color: #005dc7;
+      }
+
+      .keybinding.mouse-button.mouse-5 {
+        background-color: #a3c9ff;
+        border-color: #0052b3;
+      }
+
+      .keybinding.repeat-key {
+        background-color: #ffe2c8;
+        border-color: #ff7700;
+      }
+
+      .keybinding.repeat-key::after {
+        content: "×2";
+        position: absolute;
+        top: -6px;
+        right: -4px;
+        background-color: #ff7700;
+        color: white;
+        font-size: 0.7rem;
+        padding: 1px 4px;
+        border-radius: 8px;
+        font-weight: bold;
+      }
+
+      .keybinding.shift-key {
+        background-color: #ffcce5;
+        border-color: var(--shift-color);
+        color: var(--shift-color);
+      }
+
+      .keybinding.ctrl-key {
+        background-color: #dcf5dc;
+        border-color: var(--ctrl-color);
+        color: var(--ctrl-color);
+      }
+
+      .keybinding.alt-key {
+        background-color: #ffe9cc;
+        border-color: var(--alt-color);
+        color: var(--alt-color);
+      }
+
+      .combo-text {
+        font-weight: bold;
+      }
+
+      .key-plus {
+        margin: 0 4px;
+        color: #666;
+        font-weight: normal;
+      }
+
+      .loading {
+        text-align: center;
+        padding: 30px;
+        font-size: 1.1rem;
+        color: var(--secondary-color);
+      }
+
+      .stats {
+        text-align: center;
+        margin-bottom: 20px;
+        color: var(--text-color);
+      }
+
+      .file-upload {
+        margin-top: 30px;
+        text-align: center;
+      }
+
+      .file-upload label {
+        display: inline-block;
+        padding: 12px 20px;
+        background-color: var(--secondary-color);
+        color: white;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .file-upload label:hover {
+        background-color: #2980b9;
+      }
+
+      .file-upload input[type="file"] {
+        display: none;
+      }
+
+      .file-name {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        color: var(--text-color);
+      }
+
+      .no-groups-message {
+        padding: 20px;
+        background-color: #fcf8e3;
+        border: 1px solid #faebcc;
+        color: #8a6d3b;
+        border-radius: 4px;
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .key-count-separator {
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        .binding-groups {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Age of Empires IV - Key Bindings</h1>
+      </header>
+
+      <div class="stats" id="stats"></div>
+
+      <div
+        id="filter-bar-wrapper"
+        style="
+          display: flex;
+          justify-content: center;
+          margin-bottom: 18px;
+          display: none;
+        "
+      >
+        <div
+          id="filter-bar"
+          style="
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px #0001, 0 1.5px 4px #3498db11;
+            padding: 18px 24px;
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+          "
+        ></div>
+      </div>
+
+      <div class="binding-groups" id="binding-groups"></div>
+
+      <div class="file-upload">
+        <label for="file-input">Choose your .rkp file</label>
+        <input type="file" id="file-input" accept=".rkp" />
+        <div class="file-name" id="file-name">No file selected</div>
+      </div>
+    </div>
+
+    <script>
+      /**
+       * Function to parse the .rkp file content
+       * @param {string} fileContent - The content of the .rkp file
+       * @returns {Object} - Parsed binding groups data
+       */
+      function parseRKPFile(fileContent) {
+        const result = {};
+
+        try {
+          // Limit the file content to the first 4224 lines
+          const lines = fileContent.split("\n");
+          const relevantLines = lines.slice(0, 4224);
+          const limitedContent = relevantLines.join("\n");
+
+          // Check for bindingGroups with variable spacing
+          const bindingGroupsPattern = /bindingGroups\s*=\s*\{/;
+          const bindingGroupsMatch = limitedContent.match(bindingGroupsPattern);
+
+          if (!bindingGroupsMatch) {
+            throw new Error("No bindingGroups section found in the file");
+          }
+
+          const bindingGroupsStart = bindingGroupsMatch.index;
+
+          // Find where fullyRemappableBindingGroups starts (to avoid including it)
+          const fullyRemappablePattern =
+            /fullyRemappableBindingGroups\s*=\s*\{/;
+          const fullyRemappableMatch = limitedContent.match(
+            fullyRemappablePattern
+          );
+          const fullyRemappableStart = fullyRemappableMatch
+            ? fullyRemappableMatch.index
+            : -1;
+
+          // Extract only the bindingGroups section
+          let bindingGroupsContent;
+          if (fullyRemappableStart !== -1) {
+            // Extract content between bindingGroups and fullyRemappableBindingGroups
+            bindingGroupsContent = limitedContent
+              .substring(bindingGroupsStart, fullyRemappableStart)
+              .trim();
+
+            // Find the closing brace position
+            const lastClosingBrace = bindingGroupsContent.lastIndexOf("},");
+            if (lastClosingBrace !== -1) {
+              bindingGroupsContent = bindingGroupsContent.substring(
+                0,
+                lastClosingBrace + 2
+              );
+            }
+          } else {
+            // If fullyRemappableBindingGroups is not found, extract all content after bindingGroups
+            bindingGroupsContent = limitedContent.substring(bindingGroupsStart);
+
+            // Try to find the end by looking for a balanced closing brace
+            let openBraces = 0;
+            let closingPos = -1;
+
+            for (let i = 0; i < bindingGroupsContent.length; i++) {
+              if (bindingGroupsContent[i] === "{") openBraces++;
+              if (bindingGroupsContent[i] === "}") {
+                openBraces--;
+                if (openBraces === 0) {
+                  closingPos = i;
+                  break;
+                }
+              }
+            }
+
+            if (closingPos !== -1) {
+              bindingGroupsContent = bindingGroupsContent.substring(
+                0,
+                closingPos + 1
+              );
+            }
+          }
+
+          // Extract group names and their commands
+          const groupPattern = /(\w+)\s*=\s*\{/g;
+          let match;
+          let groups = [];
+
+          while ((match = groupPattern.exec(bindingGroupsContent)) !== null) {
+            const groupName = match[1].trim();
+            // Skip the bindingGroups itself and other system groups
+            if (
+              !["profile", "bindingGroups", "keycombos"].includes(groupName)
+            ) {
+              groups.push({
+                name: groupName,
+                position: match.index,
+              });
+            }
+          }
+
+          // Sort groups by position
+          groups.sort((a, b) => a.position - b.position);
+
+          // Process each group
+          for (let i = 0; i < groups.length; i++) {
+            const groupName = groups[i].name;
+            const startPos = groups[i].position;
+            const endPos =
+              i < groups.length - 1
+                ? groups[i + 1].position
+                : bindingGroupsContent.length;
+
+            const groupContent = bindingGroupsContent.substring(
+              startPos,
+              endPos
+            );
+            result[groupName] = [];
+
+            // Extract command blocks
+            const commandPattern =
+              /command\s*=\s*"([^"]+)"([\s\S]*?)(?=command\s*=|$)/g;
+            let cmdMatch;
+
+            while ((cmdMatch = commandPattern.exec(groupContent)) !== null) {
+              const commandName = cmdMatch[1];
+              const commandBlock = cmdMatch[0];
+
+              // Extract keycombos
+              const keyCombos = [];
+              const comboPattern = /combo\s*=\s*"([^"]*)"/g;
+              let comboMatch;
+
+              // Also look for repeat counts
+              const repeatPattern = /repeatCount\s*=\s*(\d+)/g;
+
+              while ((comboMatch = comboPattern.exec(commandBlock)) !== null) {
+                const combo = comboMatch[1].trim();
+                if (combo !== "") {
+                  // Find the start position of this combo in the block
+                  const comboPos = commandBlock.indexOf(comboMatch[0]);
+                  const comboEndPos = comboPos + comboMatch[0].length;
+
+                  // Look for repeatCount near this combo
+                  let repeatCount = -1;
+                  const comboSectionEnd = commandBlock.indexOf(
+                    "combo",
+                    comboEndPos + 1
+                  );
+                  const searchEnd =
+                    comboSectionEnd > 0 ? comboSectionEnd : commandBlock.length;
+                  const comboSection = commandBlock.substring(
+                    comboPos,
+                    searchEnd
+                  );
+
+                  const repeatMatch = repeatPattern.exec(comboSection);
+                  if (repeatMatch) {
+                    repeatCount = parseInt(repeatMatch[1], 10);
+                  }
+
+                  keyCombos.push({
+                    combo: combo,
+                    event: "Press",
+                    repeatCount: repeatCount,
+                  });
+                }
+              }
+
+              // Only add commands with bindings
+              if (keyCombos.length > 0) {
+                result[groupName].push({
+                  command: commandName,
+                  keycombos: keyCombos,
+                });
+              }
+            }
+          }
+
+          // Add critical commands if they're missing
+          const criticalCommands = [
+            { name: "pick_all_idle_villagers", defaultGroup: "hud_game" },
+            { name: "pick_all_idle_military", defaultGroup: "hud_game" },
+            { name: "pick_all_town_centers", defaultGroup: "hud_game" },
+            { name: "cycle_town_centers", defaultGroup: "hud_game" },
+          ];
+
+          criticalCommands.forEach((cmd) => {
+            let found = false;
+            for (const group in result) {
+              if (result[group].some((c) => c.command === cmd.name)) {
+                found = true;
+                break;
+              }
+            }
+
+            if (!found) {
+              const cmdPattern = new RegExp(
+                `command\\s*=\\s*"${cmd.name}"[\\s\\S]*?combo\\s*=\\s*"([^"]+)"`,
+                "g"
+              );
+              let cmdMatch = cmdPattern.exec(limitedContent);
+
+              if (cmdMatch && cmdMatch[1] && cmdMatch[1].trim()) {
+                if (!result[cmd.defaultGroup]) result[cmd.defaultGroup] = [];
+
+                result[cmd.defaultGroup].push({
+                  command: cmd.name,
+                  keycombos: [
+                    {
+                      combo: cmdMatch[1].trim(),
+                      event: "Press",
+                      repeatCount: -1,
+                    },
+                  ],
+                });
+              }
+            }
+          });
+
+          // Remove empty groups
+          for (const group in result) {
+            if (result[group].length === 0) {
+              delete result[group];
+            }
+          }
+
+          if (Object.keys(result).length === 0) {
+            throw new Error("No binding groups found with keybindings");
+          }
+
+          return result;
+        } catch (err) {
+          console.error("Error in parsing:", err);
+          throw err;
+        }
+      }
+
+      // Filter state (move to global scope)
+      const filterState = {
+        ctrl: false,
+        shift: false,
+        alt: false,
+        mouse4: false,
+        mouse5: false,
+        middle: false,
+      };
+
+      // Render filter bar with icons
+      function renderFilterBar(onChange, show = true) {
+        const filterBarWrapper = document.getElementById("filter-bar-wrapper");
+        const filterBar = document.getElementById("filter-bar");
+        filterBar.innerHTML = "";
+        filterBarWrapper.style.display = show ? "flex" : "none";
+        if (!show) return;
+        const filters = [
+          {
+            key: "ctrl",
+            label: "Ctrl",
+            iconClass: "keybinding ctrl-key",
+            iconText: "Ctrl",
+          },
+          {
+            key: "shift",
+            label: "Shift",
+            iconClass: "keybinding shift-key",
+            iconText: "Shift",
+          },
+          {
+            key: "alt",
+            label: "Alt",
+            iconClass: "keybinding alt-key",
+            iconText: "Alt",
+          },
+          {
+            key: "mouse4",
+            label: "Mouse 4",
+            iconClass: "keybinding mouse-button mouse-4",
+            iconText: "M4",
+          },
+          {
+            key: "mouse5",
+            label: "Mouse 5",
+            iconClass: "keybinding mouse-button mouse-5",
+            iconText: "M5",
+          },
+          {
+            key: "middle",
+            label: "Middle Mouse",
+            iconClass: "keybinding mouse-button middle-mouse",
+            iconText: "MMB",
+          },
+        ];
+        filters.forEach((f) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.style.padding = "0";
+          btn.style.border = "none";
+          btn.style.background = filterState[f.key] ? "#eaf6ff" : "transparent";
+          btn.style.cursor = "pointer";
+          btn.style.display = "flex";
+          btn.style.alignItems = "center";
+          btn.style.justifyContent = "center";
+          btn.style.height = "48px";
+          btn.style.width = "48px";
+          btn.style.borderRadius = "10px";
+          btn.style.boxShadow = "none";
+          btn.setAttribute(
+            "aria-pressed",
+            filterState[f.key] ? "true" : "false"
+          );
+          btn.onmouseover = () => {
+            if (!filterState[f.key]) btn.style.background = "#f0f4fa";
+          };
+          btn.onmouseout = () => {
+            if (!filterState[f.key]) btn.style.background = "transparent";
+          };
+
+          // Icon
+          const icon = document.createElement("div");
+          icon.className = f.iconClass;
+          icon.style.margin = "0";
+          icon.style.width = "64px";
+          icon.style.height = "36px";
+          icon.style.display = "flex";
+          icon.style.alignItems = "center";
+          icon.style.justifyContent = "center";
+          icon.style.fontSize = "1rem";
+          icon.style.fontWeight = "bold";
+          icon.style.overflow = "hidden";
+          icon.style.whiteSpace = "nowrap";
+          icon.style.boxShadow = "none";
+          icon.style.borderWidth = "1.5px";
+          icon.style.background = "inherit";
+          icon.style.position = "static";
+          icon.style.padding = "0";
+          icon.innerHTML = `<span class=\"combo-text\">${f.iconText}</span>`;
+
+          btn.appendChild(icon);
+
+          btn.addEventListener("click", () => {
+            // Toggle: if already selected, unselect all; else select only this
+            if (filterState[f.key]) {
+              Object.keys(filterState).forEach((k) => (filterState[k] = false));
+            } else {
+              Object.keys(filterState).forEach((k) => (filterState[k] = false));
+              filterState[f.key] = true;
+            }
+            renderFilterBar(onChange, true);
+            onChange();
+          });
+          filterBar.appendChild(btn);
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const fileInput = document.getElementById("file-input");
+        const fileName = document.getElementById("file-name");
+        const bindingGroups = document.getElementById("binding-groups");
+
+        // Check if a file is specified in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const fileParam = urlParams.get("file");
+
+        if (fileParam) {
+          // Create loading indicator
+          const loadingIndicator = document.createElement("div");
+          loadingIndicator.className = "loading";
+          loadingIndicator.textContent = `Loading file: ${fileParam}...`;
+          bindingGroups.appendChild(loadingIndicator);
+
+          // Fetch the file
+          fetch(fileParam)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(
+                  `Failed to load file: ${response.status} ${response.statusText}`
+                );
+              }
+              return response.text();
+            })
+            .then((fileContent) => {
+              try {
+                const parsedBindings = parseRKPFile(fileContent);
+
+                // Check if the parsed data is valid
+                if (Object.keys(parsedBindings).length === 0) {
+                  throw new Error(
+                    "No binding groups found in the file. The file might not be in the correct format."
+                  );
+                }
+
+                // Update the file name display
+                fileName.textContent = fileParam;
+
+                // Process and display the data
+                afterBindingsLoaded(parsedBindings);
+              } catch (error) {
+                showError("Error parsing file: " + error.message);
+              }
+            })
+            .catch((error) => {
+              showError("Error loading file: " + error.message);
+            });
+        }
+
+        fileInput.addEventListener("change", function (event) {
+          const file = event.target.files[0];
+
+          if (file) {
+            fileName.textContent = file.name;
+
+            // Create loading indicator
+            const loadingIndicator = document.createElement("div");
+            loadingIndicator.className = "loading";
+            loadingIndicator.textContent = "Parsing key bindings...";
+            bindingGroups.innerHTML = "";
+            bindingGroups.appendChild(loadingIndicator);
+
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+              try {
+                const fileContent = e.target.result;
+                const parsedBindings = parseRKPFile(fileContent);
+
+                // Check if the parsed data is valid
+                if (Object.keys(parsedBindings).length === 0) {
+                  throw new Error(
+                    "No binding groups found in the file. The file might not be in the correct format."
+                  );
+                }
+
+                // Process and display the data
+                afterBindingsLoaded(parsedBindings);
+              } catch (error) {
+                showError("Error parsing file: " + error.message);
+              }
+            };
+
+            reader.onerror = function (e) {
+              showError(
+                "Error reading file: " +
+                  (e.target.error ? e.target.error.message : "Unknown error")
+              );
+            };
+
+            reader.readAsText(file);
+          } else {
+            fileName.textContent = "No file selected";
+            renderFilterBar(() => {}, false);
+          }
+        });
+
+        function showError(message) {
+          const errorMsg = document.createElement("div");
+          errorMsg.className = "loading";
+          errorMsg.textContent = message;
+          errorMsg.style.color = "var(--accent-color)";
+          bindingGroups.innerHTML = "";
+          bindingGroups.appendChild(errorMsg);
+          document.getElementById("stats").textContent = "";
+          renderFilterBar(() => {}, false);
+        }
+
+        // After file is loaded and parsed, call renderFilterBar and pass a callback to rerender bindings
+        function afterBindingsLoaded(parsedBindings) {
+          const hasBindings = Object.keys(parsedBindings).length > 0;
+          renderFilterBar(() => renderBindings(parsedBindings), hasBindings);
+          renderBindings(parsedBindings);
+          updateStats(parsedBindings);
+        }
+      });
+
+      function updateStats(bindingGroups) {
+        const stats = document.getElementById("stats");
+
+        // Count total commands and bound commands
+        let totalCommands = 0;
+        let boundCommands = 0;
+
+        Object.values(bindingGroups).forEach((commands) => {
+          totalCommands += commands.length;
+
+          commands.forEach((command) => {
+            if (
+              command.keycombos &&
+              command.keycombos.some(
+                (combo) => combo.combo && combo.combo.trim() !== ""
+              )
+            ) {
+              boundCommands++;
+            }
+          });
+        });
+
+        stats.textContent = `Total Commands: ${totalCommands} | Bound Commands: ${boundCommands} | Unbound Commands: ${
+          totalCommands - boundCommands
+        }`;
+      }
+
+      function renderBindings(bindingGroups) {
+        const container = document.getElementById("binding-groups");
+        container.innerHTML = "";
+
+        // Groups to hide
+        const hiddenGroups = [
+          "camera",
+          "hud_dynamic_modern",
+          "hud_menu",
+          "hud_game",
+          "hud_replay",
+          "hud_dynamic_classic",
+          "hud_control_groups", // Hide hud_control_groups
+        ];
+
+        // Commands to hide
+        const hiddenCommands = [
+          "subselect_next",
+          "focus_selected",
+          "escape",
+          "open_chat",
+          "replay_pause",
+          "cycle_camera_bookmarks",
+          "show_scores",
+          "zoom_in",
+          "zoom_out",
+          "quick_upgrade_unit_action_1",
+          "quick_upgrade_unit_action_2",
+          "stop",
+        ];
+
+        // Filter out hidden groups
+        for (const group of hiddenGroups) {
+          if (bindingGroups[group]) {
+            delete bindingGroups[group];
+          }
+        }
+
+        // Collect all commands from all groups
+        const allCommands = [];
+        Object.keys(bindingGroups).forEach((groupName) => {
+          if (groupName !== "keycombos" && groupName !== "bindingGroups") {
+            const commands = bindingGroups[groupName];
+
+            // Filter out hidden commands and commands with no bindings
+            const validCommands = commands.filter(
+              (cmd) =>
+                !hiddenCommands.includes(cmd.command) &&
+                cmd.keycombos &&
+                cmd.keycombos.some((k) => k.combo && k.combo.trim() !== "")
+            );
+
+            validCommands.forEach((cmd) => {
+              allCommands.push({
+                command: cmd.command,
+                keycombos: cmd.keycombos,
+                group: groupName,
+              });
+            });
+          }
+        });
+
+        // FILTER: Only show commands matching the filter state
+        const filterActive = Object.values(filterState).some(Boolean);
+        let filteredCommands = allCommands;
+        if (filterActive) {
+          filteredCommands = allCommands.filter((cmd) => {
+            // Check all keycombos for this command
+            return cmd.keycombos.some((k) => {
+              const combo = k.combo;
+              if (!combo) return false;
+              const keys = combo.split("+").map((x) => x.trim());
+              // Only one filter can be active at a time
+              if (filterState.ctrl) return keys.includes("Control");
+              if (filterState.shift) return keys.includes("Shift");
+              if (filterState.alt) return keys.includes("Alt");
+              if (filterState.mouse4) return keys.includes("MouseX1");
+              if (filterState.mouse5) return keys.includes("MouseX2");
+              if (filterState.middle) return keys.includes("MouseMiddle");
+              return true;
+            });
+          });
+        }
+
+        // If no commands, show message and exit
+        if (filteredCommands.length === 0) {
+          const noCommandsMsg = document.createElement("div");
+          noCommandsMsg.className = "no-groups-message";
+          noCommandsMsg.textContent = filterActive
+            ? "No key bindings match the selected filter(s)."
+            : "No key bindings were found in the file. Please check the format or try a different file.";
+          container.appendChild(noCommandsMsg);
+          return;
+        }
+
+        // Sort all commands by:
+        // 1. Number of keys in combo (1, 2, 3)
+        // 2. Presence of modifier keys (Shift, Control, Alt)
+        // 3. Alphabetically by command name
+        filteredCommands.sort((a, b) => {
+          const aKeyCount = a.keycombos[0].combo.split("+").length;
+          const bKeyCount = b.keycombos[0].combo.split("+").length;
+          if (aKeyCount !== bKeyCount) {
+            return aKeyCount - bKeyCount;
+          }
+          const aHasShift = a.keycombos[0].combo.includes("Shift");
+          const bHasShift = b.keycombos[0].combo.includes("Shift");
+          const aHasCtrl = a.keycombos[0].combo.includes("Control");
+          const bHasCtrl = b.keycombos[0].combo.includes("Control");
+          const aHasAlt = a.keycombos[0].combo.includes("Alt");
+          const bHasAlt = b.keycombos[0].combo.includes("Alt");
+          if (aHasCtrl !== bHasCtrl) return bHasCtrl - aHasCtrl;
+          if (aHasAlt !== bHasAlt) return bHasAlt - aHasAlt;
+          if (aHasShift !== bHasShift) return bHasShift - aHasShift;
+          return a.command.localeCompare(b.command);
+        });
+
+        // Group commands by key count
+        const singleKeyCommands = filteredCommands.filter(
+          (cmd) => cmd.keycombos[0].combo.split("+").length === 1
+        );
+        const doubleKeyCommands = filteredCommands.filter(
+          (cmd) => cmd.keycombos[0].combo.split("+").length === 2
+        );
+        const tripleKeyCommands = filteredCommands.filter(
+          (cmd) => cmd.keycombos[0].combo.split("+").length >= 3
+        );
+
+        // Calculate optimal distribution
+        const totalCommands = filteredCommands.length;
+        const commandsPerColumn = Math.ceil(totalCommands / 4);
+
+        // Create and fill columns
+        let currentColumn = createColumnElement();
+        let commandCount = 0;
+
+        // Helper to add commands to columns
+        function addCommandsToColumns(commands) {
+          commands.forEach((command) => {
+            // If we've filled a column, create a new one
+            if (commandCount >= commandsPerColumn) {
+              container.appendChild(currentColumn);
+              currentColumn = createColumnElement();
+              commandCount = 0;
+            }
+
+            // Get current key count of this command
+            const keyCount = command.keycombos[0].combo.split("+").length;
+
+            // Create command item
+            const commandItem = createCommandItem(command);
+            currentColumn.appendChild(commandItem);
+            commandCount++;
+          });
+        }
+
+        // Add all commands to columns
+        addCommandsToColumns(singleKeyCommands);
+        addCommandsToColumns(doubleKeyCommands);
+        addCommandsToColumns(tripleKeyCommands);
+
+        // Add the last column if it has content
+        if (currentColumn.childNodes.length > 0) {
+          container.appendChild(currentColumn);
+        }
+      }
+
+      // Helper to create a new column element
+      function createColumnElement() {
+        const column = document.createElement("div");
+        column.className = "group";
+        column.style.padding = "10px 0";
+        return column;
+      }
+
+      // Helper to create a command item
+      function createCommandItem(command) {
+        const listItem = document.createElement("div");
+        listItem.className = "command-item";
+        listItem.dataset.command = command.command;
+
+        // Add key count as data attribute
+        const keyCount = command.keycombos[0].combo.split("+").length;
+        listItem.dataset.keyCount = keyCount;
+
+        const commandName = document.createElement("div");
+        commandName.className = "command-name";
+        commandName.textContent = formatCommandName(command.command);
+        listItem.appendChild(commandName);
+
+        // Add keybindings
+        const keybindingsContainer = document.createElement("div");
+        keybindingsContainer.className = "keybindings-container";
+
+        // Filter out empty combos
+        const validKeycombos = command.keycombos.filter(
+          (k) => k.combo && k.combo.trim() !== ""
+        );
+
+        validKeycombos.forEach((keybinding, index) => {
+          // Split the key combo by + to create individual key elements
+          const keyCombo = keybinding.combo.split("+");
+
+          keyCombo.forEach((key, keyIndex) => {
+            const trimmedKey = key.trim();
+            if (trimmedKey) {
+              const keyElement = document.createElement("div");
+              keyElement.className = "keybinding";
+
+              // Add special classes for mouse buttons
+              const isMouseButton = /^Mouse(X1|X2|Middle)$/.test(trimmedKey);
+              if (isMouseButton) {
+                keyElement.classList.add("mouse-button");
+
+                if (trimmedKey === "MouseMiddle") {
+                  keyElement.classList.add("middle-mouse");
+                } else if (trimmedKey === "MouseX1") {
+                  keyElement.classList.add("mouse-4");
+                } else if (trimmedKey === "MouseX2") {
+                  keyElement.classList.add("mouse-5");
+                }
+              }
+
+              // Add special class for repeat keys
+              if (keybinding.repeatCount === 1) {
+                keyElement.classList.add("repeat-key");
+              }
+
+              // Add special classes for modifier keys
+              if (trimmedKey === "Shift") {
+                keyElement.classList.add("shift-key");
+              } else if (trimmedKey === "Control") {
+                keyElement.classList.add("ctrl-key");
+              } else if (trimmedKey === "Alt") {
+                keyElement.classList.add("alt-key");
+              }
+
+              // Map special keys to more readable formats
+              let displayText = trimmedKey;
+              if (trimmedKey === "MouseX1") displayText = "Mouse 4";
+              if (trimmedKey === "MouseX2") displayText = "Mouse 5";
+              if (trimmedKey === "MouseMiddle") displayText = "Middle";
+              if (trimmedKey === "OEM102") displayText = "< > |";
+
+              // Create span for the individual key
+              const keyText = document.createElement("span");
+              keyText.className = "combo-text";
+              keyText.textContent = displayText;
+              keyElement.appendChild(keyText);
+
+              keybindingsContainer.appendChild(keyElement);
+
+              // Add plus sign between keys (except for the last key)
+              if (keyIndex < keyCombo.length - 1) {
+                const plusElement = document.createElement("span");
+                plusElement.className = "key-plus";
+                plusElement.textContent = "+";
+                keybindingsContainer.appendChild(plusElement);
+              }
+            }
+          });
+
+          // Add a line break between different keybindings
+          if (index < validKeycombos.length - 1) {
+            keybindingsContainer.appendChild(document.createElement("br"));
+          }
+        });
+
+        listItem.appendChild(keybindingsContainer);
+        return listItem;
+      }
+
+      function formatGroupName(groupName) {
+        // Replace underscores with spaces and capitalize each word
+        return groupName
+          .replace(/_/g, " ")
+          .split(" ")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ");
+      }
+
+      function formatCommandName(commandName) {
+        // Remove "pick_" prefix from command names
+        const nameWithoutPick = commandName.replace(/^pick_/i, "");
+
+        // Replace underscores with spaces and capitalize each word
+        return nameWithoutPick
+          .replace(/_/g, " ")
+          .split(" ")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ");
+      }
+    </script>
+  </body>
+</html>
